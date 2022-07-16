@@ -1,0 +1,29 @@
+[
+    {"id":1,
+    "first_name":"Ethan",
+    "surname":"Thompson"	,
+    "dob":"19/04/1990"	,
+    "address":"15 Sydney Street, Marrickville, New South Wales, 2204 Australia"	,
+    "phone":"495 743 149"	,
+    "gender":"male"	,
+    "ihi":"4260201605184111"
+     },
+     {"id":2,
+     "first_name":"Levi",
+     "surname":"Ward"	,
+     "dob":"03/27/1999"	,
+     "address":"24 Back Forest Road, Far Meadow, New South Wales, 2535 Australia"	,
+     "phone":"434 743 149"	,
+     "gender":"male"	,
+     "ihi":"5963437514505883"
+      },
+      {"id":3,
+      "first_name":"Ethan",
+      "surname":"Thompson"	,
+      "dob":"9/09/1990"	,
+      "address":"14 Bullecourt Way, Matraville, New South Wales, 2036 Australia"	,
+      "phone":"485 743 149"	,
+      "gender":"male"	,
+      "ihi":"4260201605184111"
+       }
+]

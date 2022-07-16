@@ -1,8 +1,13 @@
-import Patient from "./Patient"
-const Patients = () => {
+ import Patient from "./Patient"
+const Patients = ({patientList}) => {
     return (
         <>
-        <Patient/>
+        {patientList.map(patient =>
+            
+            <Patient key= {patient.id} patient={patient}/>
+        
+            )}
+        
         </>
     )
 } 
