@@ -22,6 +22,10 @@ const App = () => {
   )
   const activeUser = (username) =>{
   setLoggedInUser(username)
+  }
+  const addPatient = (patient) => {
+    patient.id = patientList[patientList.length -1].id +1 
+    setPatientList((patientList)=> [...patientList,patient])
 }
 
   return (
@@ -30,7 +34,7 @@ const App = () => {
     <Navigation loggedInUser={loggedInUser} activeUser={activeUser}/>
     <Patients patientList ={patientList}/>
     <DispenseForm/>
-    <Manage/>
+    <Manage loggedInUser={loggedInUser} addPatient={addPatient}/>
     <Reports/>
     <Help/>
     {!loggedInUser && <LoginForm activeUser={activeUser}/>}
