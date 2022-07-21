@@ -1,16 +1,27 @@
+import { Link, useNavigate } from "react-router-dom"
+
+
 const Navigation = ({loggedInUser,activateUser}) => {
+
+    const navigate = useNavigate()
     const logout = (e) =>{
         e.preventDefault()
         activateUser("")
+        navigate("/")
     }
     return (
         <nav>
-            <a href = "/">Home</a>
-            <a href = "/">Patients</a>
-            <a href = "/">Manage</a>
-            <a href = "/">Help</a>
-            <div>{loggedInUser}</div> 
-            <a href = "/" onClick={logout} >Log Out</a>
+            {
+            loggedInUser && 
+                <>
+                <Link to = "/">Home</Link>
+                <Link to = "/patients">Patients</Link>
+                <Link to = "/manage">Manage</Link>
+                <Link to = "/help">Help</Link>
+                <div>{loggedInUser}</div> 
+                <Link to = "/" onClick={logout} >Log Out</Link>
+                </>
+            }
         </nav>
     )
 } 

@@ -1,5 +1,7 @@
 import { useState } from "react"
-const LoginForm = ({activeUser}) => {
+import { useNavigate } from "react-router-dom"
+const LoginForm = ({activateUser}) => {
+    const navigate = useNavigate()
     //initial data in the form
     const initialFormData = {
         user: "",
@@ -9,11 +11,10 @@ const LoginForm = ({activeUser}) => {
 //when user press submit button
     const handleSubmit = (e) =>{
         e.preventDefault()
-        console.log("you clicked submit")
-        console.log(formData)
         //to clean the form after submition
-        activeUser(formData.user)
+        activateUser(formData.user)
         setFormData(initialFormData )
+        navigate ("/home")
     }
     
     const handleFormData= (e) =>{
