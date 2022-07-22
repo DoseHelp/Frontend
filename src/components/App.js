@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, {useEffect, useReducer, useState}from 'react'
 import Navigation from './Navigation'
 import Patients from './Patients'
 import PatientForm from './PatientForm'
@@ -11,28 +11,52 @@ import LoginForm from './LoginForm'
 import intialPatientList from '../data/patient-list.json'
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import NotFound from './NotFound'
-
+import { reducer } from '../utils/reducer'
 
 const App = () => {
   //to have the user allover the app
-  const [loggedInUser, setLoggedInUser] = useState("")
-  const [patientList, setPatientList] = useState([])
-  
-  //to get the data from api async
-  useEffect(
-    () =>{
-      //fetch from api
-      setPatientList(intialPatientList)
-    }
-    ,[]
-  )
-  const activateUser = (username) =>{
-  setLoggedInUser(username)
+  const initialState = {
+    messageList: [],
+    loggedInUser: ""
   }
-  const addPatient = (patient) => {
+  const [store, dispatch] = useReducer(reducer, initialState)
+  const {patientList, loggedInUser} = store
+
+  const activateUser = (username) =>{
+    dispatch({
+      type: "setLoggedInUser",
+      data: username 
+    })
+    }
+  //to get the data from api async
+  
+  
+  const addPatient = (firstname) => {
     patient.id = patientList[patientList.length -1].id +1 
-    setPatientList((patientList)=> [...patientList,patient])
+    const patient = {
+      id: patientList[0].id + 1, //nextId(messageList)
+      firstname: firstname,
+      user: loggedInUser,
+      
+    }
+    dispatch({
+      type: "addPatient",
+      data: patient
+    })
+   
 }
+useEffect(
+  ()=>{
+    //fetch
+   
+    dispatch({
+      type: "setPatientList",
+      data: intialPatientList
+    })
+  }
+  ,
+  []
+)
   return (
     
   <div>
