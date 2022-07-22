@@ -33,8 +33,8 @@ const App = () => {
     patient.id = patientList[patientList.length -1].id +1 
     setPatientList((patientList)=> [...patientList,patient])
 }
-
   return (
+    
   <div>
     <h1>DoseHelp</h1>
    
@@ -44,48 +44,26 @@ const App = () => {
     <Reports/>
     <Help/>
     {!loggedInUser && <LoginForm activeUser={activeUser}/>} */}
-    <Router>
-    {/* <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/> */}
     
-      <Routes>
-        <Route path ="/" element={<Navigate to="/"/>}/>
-        <Route path='/' element={!loggedInUser && <LoginForm activateUser={activateUser}/>}></Route>
-        <Route path ="/login" element={<Navigate to="/"/>}></Route>
-        <Route path="/home" element={
-          loggedInUser?
-            <Landing loggedInUser={loggedInUser}/>
-            :
-            <Navigate to="/"/>
-          }></Route>
-           
-        <Route path='help' element={<Help/>}></Route>
-        <Route path='patients' element={
-          loggedInUser ?
-          <Patients patientList ={patientList}/>
-          :
-          <Navigate to ="/"/>
-        }></Route>
-        <Route path='patients/new' element={
-          loggedInUser ?
-          <PatientForm addPatient={addPatient}/>
-          :
-          <Navigate to ="/"/>
-          }></Route>
-        <Route path='dispense' element={
-          loggedInUser?
-          <DispenseForm/>
-          :
-          <Navigate to="/"/>
-          }></Route>
-        <Route path = 'reports' element={
-          loggedInUser?
-          <Reports/>
-          :
-          <Navigate to="/"/>
-          }></Route>
-        <Route path = '*' element={<NotFound/>}/>
-      </Routes>
-    </Router>
+    <Router>
+          <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/> 
+          <Routes>
+            <Route path="/" element={!loggedInUser && <LoginForm activateUser={activateUser}/>} />
+            <Route path="patients" loggedInUser={loggedInUser}>
+              <Route index element={<Patients patientList={patientList}/>}/>
+              <Route path="new" element={
+                loggedInUser?
+                <PatientForm loggedInUser={loggedInUser} addPatient={addPatient}/>
+                :
+                <Navigate to="/login" />
+                } />
+             
+            </Route>
+            <Route path="help" element={<Help />} />
+            <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
+            <Route path="*" element={<NotFound />} /> 
+          </Routes>
+        </Router>
 
   </div>
   )
