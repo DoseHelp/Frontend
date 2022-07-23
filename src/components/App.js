@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-do
 import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
 import Patient from './Patient'
+import { StateContext } from '../utils/stateContext'
 
 const App = () => {
   //to have the user allover the app
@@ -70,24 +71,26 @@ useEffect(
     <Reports/>
     <Help/>
     {!loggedInUser && <LoginForm activeUser={activeUser}/>} */}
-    <Router>
-      <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/> 
-          <Routes>
-            <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
-            <Route path="patients">
-              <Route index element={<Patients patientList={patientList}/>}/>
-              <Route path="new" element={
-                loggedInUser?
-                  <PatientForm loggedInUser={loggedInUser} addPatient={addPatient}/>
-                :
-                  <Navigate to="login" />
-                } />
-              </Route>
-            <Route path="help" element={<help />} />
-            <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
-            <Route path="*" element={<NotFound />} /> 
-          </Routes>
-    </Router> 
+    <StateContext.Provider value={{store, dispatch}}>
+      <Router>
+        <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/> 
+            <Routes>
+              <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
+              <Route path="patients">
+                <Route index element={<Patients patientList={patientList}/>}/>
+                <Route path="new" element={
+                  loggedInUser?
+                    <PatientForm loggedInUser={loggedInUser} addPatient={addPatient}/>
+                  :
+                    <Navigate to="login" />
+                  } />
+                </Route>
+              <Route path="help" element={<help />} />
+              <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
+              <Route path="*" element={<NotFound />} /> 
+            </Routes>
+      </Router>
+    </StateContext.Provider> 
     
 
   </div>
