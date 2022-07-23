@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useState}from 'react'
+import React, {useEffect, useReducer}from 'react'
 import Navigation from './Navigation'
 import Patients from './Patients'
 import PatientForm from './PatientForm'
@@ -12,7 +12,6 @@ import intialPatientList from '../data/patient-list.json'
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
-import Patient from './Patient'
 import { StateContext } from '../utils/stateContext'
 
 const App = () => {
@@ -33,7 +32,7 @@ const App = () => {
   
   
   const addPatient = (first_name) => {
-    patient.id = patientList[patientList.length -1].id +1 
+    
     const patient = {
       id: patientList[0].id + 1, //next Id
       first_name: first_name,
@@ -85,7 +84,13 @@ useEffect(
                     <Navigate to="login" />
                   } />
                 </Route>
-              <Route path="help" element={<help />} />
+              <Route path="help" element={<Help />} />
+              <Route path="dispense" element={<DispenseForm />} />
+              <Route path="manage" element={<Manage />} />
+              <Route path="reports" element={<Reports />} />
+              <Route path="landing" element={<Landing />} />
+              
+              
               <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
               <Route path="*" element={<NotFound />} /> 
             </Routes>
