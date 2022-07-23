@@ -1,5 +1,12 @@
 import { useState } from "react"
-const PatientForm = ({loggedInUser,patient,addPatient}) => {
+import { useNavigate } from "react-router-dom"
+import { createPatient } from "../services/patientServices"
+import { useGlobalState } from "../utils/stateContext"
+
+const PatientForm = () => {
+    const {store, dispatch} = useGlobalState()
+    const {loggedInUser}= store
+    const navigate = useNavigate()
     const initialFormData = {
         id:"",
         first_name:"",
@@ -24,6 +31,16 @@ const PatientForm = ({loggedInUser,patient,addPatient}) => {
         addPatient(formData)
         cleanPatient()
     }
+    const addPatient = (data)=>{
+        createPatient (data)
+        .then(patient =>{
+            dispatch({
+                type: "addPatient",
+                data: patient
+            })
+            navigate("/home")
+        })
+    }
     //to clean the form
     const cleanPatient= () =>{
         setFormData(initialFormData)
@@ -31,7 +48,7 @@ const PatientForm = ({loggedInUser,patient,addPatient}) => {
     return (
         <>
         <form onSubmit={handleSubmit}>
-            
+            <h3>{loggedInUser}</h3>
             <div>
                 <label htmlFor="firstName">First Name</label>
                 <input type="text" name="" id="first_name" value={formData.first_name} onChange={handleFormData}/>

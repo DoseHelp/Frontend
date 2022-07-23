@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer}from 'react'
+import React, {useReducer}from 'react'
 import Navigation from './Navigation'
 import Patients from './Patients'
 import PatientForm from './PatientForm'
@@ -8,53 +8,22 @@ import Reports from './Reports'
 import Help from './Help'
 import Landing from './Landing'
 import LoginForm from './LoginForm'
-import intialPatientList from '../data/patient-list.json'
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
-
+import SignupForm from './SignupForm'
 const App = () => {
   //to have the user allover the app
   const initialState = {
     patientList: [],
-    loggedInUser: localStorage.getItem("loggedInUser")
+    loggedInUser: sessionStorage.getItem("username"),
+    token: sessionStorage.getItem("token") || null
   }
   const [store, dispatch] = useReducer(reducer, initialState)
-  const {patientList, loggedInUser} = store
-  const activateUser = (username) =>{
-    dispatch({
-      type: "setLoggedInUser",
-      data: username 
-    })
-    }
+  const {loggedInUser} = store
   //to get the data from api async
   
-  
-  const addPatient = (first_name) => {
-    
-    const patient = {
-      id: patientList[0].id + 1, //next Id
-      first_name: first_name,
-      user: loggedInUser, 
-    }
-    dispatch({
-      type: "addPatient",
-      data: patient
-    })
-   
-}
-useEffect(
-  ()=>{
-    const loggedInUser = localStorage.getItem("loggedInUser")
-    console.log(loggedInUser)
-    //fetch
-    dispatch({
-      type: "setPatientList",
-      data: intialPatientList
-    })
-  }
-  ,[])
 
 
 
@@ -72,16 +41,16 @@ useEffect(
     {!loggedInUser && <LoginForm activeUser={activeUser}/>} */}
     <StateContext.Provider value={{store, dispatch}}>
       <Router>
-        <Navigation loggedInUser={loggedInUser} activateUser={activateUser}/> 
+        <Navigation /> 
             <Routes>
               <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
               <Route path="patients">
-                <Route index element={<Patients patientList={patientList}/>}/>
+                <Route index element={<Patients/>}/>
                 <Route path="new" element={
                   loggedInUser?
-                    <PatientForm loggedInUser={loggedInUser} addPatient={addPatient}/>
+                    <PatientForm loggedInUser={loggedInUser}/>
                   :
-                    <Navigate to="login" />
+                    <Navigate to="/login" />
                   } />
                 </Route>
               <Route path="help" element={<Help />} />
@@ -90,8 +59,8 @@ useEffect(
               <Route path="reports" element={<Reports />} />
               <Route path="landing" element={<Landing />} />
               
-              
-              <Route path="login" element={<LoginForm activateUser={activateUser}/>} />
+              <Route path="signup" element={<SignupForm />} />
+              <Route path="login" element={<LoginForm />} />
               <Route path="*" element={<NotFound />} /> 
             </Routes>
       </Router>

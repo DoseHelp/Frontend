@@ -35,6 +35,13 @@ export const reducer = (state, action) => {
             }
             
         }
+        case "setToken": {
+            //updates the token value
+            return {
+                ...state,
+                token: action.data
+            }
+        }
         default: return state
     }
 

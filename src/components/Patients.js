@@ -1,5 +1,9 @@
- import Patient from "./Patient"
-const Patients = ({patientList,loggedInUser}) => {
+ import { useGlobalState } from "../utils/stateContext"
+import Patient from "./Patient"
+const Patients = () => {
+    const {store} = useGlobalState()
+    const {patientList} = store
+    const {loggedInUser} = store
     
     return (
         
