@@ -15,8 +15,9 @@ const LoginForm = ({activateUser}) => {
         console.log("you clicked submit")
         console.log(formData)
         activateUser(formData.user)
-        // setFormData(initialFormData)
-        navigate("/")
+        localStorage.setItem('loggedInUser', formData.user)
+        setFormData(initialFormData)
+        navigate("/help")
     }
 
     const handleFormData = (e) => {

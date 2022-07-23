@@ -5,6 +5,7 @@ const Navigation = ({loggedInUser,activateUser}) => {
     const logout = (e) =>{
         e.preventDefault()
         activateUser("")
+        localStorage.setItem('loggedInUser', "")
         navigate("/login")
     }
     
