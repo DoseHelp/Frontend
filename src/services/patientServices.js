@@ -1,6 +1,6 @@
 import dosehelpAPI from "../config/api";
 
-export async function getPatient (){
+export async function getPatients (){
     const response = await dosehelpAPI.get('/patients')
     return response.data
 }
