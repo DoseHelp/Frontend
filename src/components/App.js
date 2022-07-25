@@ -13,6 +13,7 @@ import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
 import SignupForm from './SignupForm'
+
 const App = () => {
   //to have the user allover the app
   const initialState = {

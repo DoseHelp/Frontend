@@ -2,7 +2,15 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { signIn } from "../services/authServices"
 import { useGlobalState } from "../utils/stateContext"
+// --------Styling----------- 
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
+//--------Styling----------- 
 const LoginForm = () => {
     const {dispatch} = useGlobalState()
     const navigate = useNavigate()
@@ -50,9 +58,10 @@ const LoginForm = () => {
         })
     }
     return (
-        <>  
-            <h4>Log in user</h4>
-            {error && <p>{error}</p>}
+        <>
+        {error && <p>{error}</p>}
+        <Card variant = "outlined" sx={{ maxWidth: 275  }}>
+            <CardContent>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Email:</label>
@@ -62,9 +71,13 @@ const LoginForm = () => {
                     <label htmlFor="password">Password:</label>
                     <input type="password" name="password" id="password" value={formData.password} onChange={handleFormData}/>
                 </div>
-               
-                <button variant="contained" type="submit">Login</button>
+                <Button variant="contained" type="submit">Login</Button>
             </form>
+        </CardContent>
+        <CardActions>
+        
+        </CardActions>
+        </Card>
         </>
     )
 
