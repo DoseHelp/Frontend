@@ -1,5 +1,6 @@
 import React, {useReducer}from 'react'
-import Navigation from './Navigation'
+// import Navigation from './Navigation'
+
 import Patients from './Patients'
 import PatientForm from './PatientForm'
 import DispenseForm from './DispenseForm'
@@ -13,6 +14,7 @@ import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
 import SignupForm from './SignupForm'
+import ResponsiveAppBar from './ResponsiveAppBar'
 
 const App = () => {
   //to have the user allover the app
@@ -25,15 +27,11 @@ const App = () => {
   const {loggedInUser} = store
   //to get the data from api async
   
-
-
-
-  
-  return (
+return (
     
   <div>
-    <h1>DoseHelp</h1>
    
+     
     {/* <Patients patientList ={patientList}/>
     <DispenseForm/>
     <Manage loggedInUser={loggedInUser} addPatient={addPatient}/>
@@ -41,8 +39,9 @@ const App = () => {
     <Help/>
     {!loggedInUser && <LoginForm activeUser={activeUser}/>} */}
     <StateContext.Provider value={{store, dispatch}}>
+      
       <Router>
-        <Navigation /> 
+      <ResponsiveAppBar /> 
             <Routes>
               <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
               <Route path="patients">
@@ -62,6 +61,8 @@ const App = () => {
               
               <Route path="signup" element={<SignupForm />} />
               <Route path="login" element={<LoginForm />} />
+              <Route path = "logout" element= {<Navigate replace to="/login"/>}/>
+              <Route path="home" element={<Navigate replace to="/landing"/>} />
               <Route path="*" element={<NotFound />} /> 
             </Routes>
       </Router>

@@ -35,6 +35,21 @@ export const reducer = (state, action) => {
             }
             
         }
+       
+        
+        case "setAnchorElNav": {
+            return{
+                ...state,
+                anchorElNav: null
+            }
+        }
+        case "setAnchorElUser": {
+            return{
+                ...state,
+                anchorElUser: null
+            }
+        }
+        
         case "setToken": {
             //updates the token value
             return {
