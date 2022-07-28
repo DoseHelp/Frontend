@@ -1,11 +1,32 @@
+//import { useEffect} from 'react'
 import { Link, useNavigate } from "react-router-dom"
-const Navigation = ({loggedInUser,activateUser}) => {
-
+import { useGlobalState } from "../utils/stateContext"
+const Navigation = () => {
+    const {store,dispatch} = useGlobalState()
+    const {loggedInUser} = store
     const navigate = useNavigate()
+   // const location = useLocation()
+    // useEffect(
+    //     displayPatient(location, dispatch) 
+    //     , 
+    //     []
+    //   ) 
+    //   useEffect(
+    //     displayPatient(location, dispatch)
+    //     , 
+    //     [location] 
+    //   ) 
+      
     const logout = (e) =>{
         e.preventDefault()
-        activateUser("")
-        localStorage.setItem('loggedInUser', "")
+        dispatch({
+            type: "setLoggedInUser",
+            data: ""
+        })
+        dispatch({
+            type: "setToken",
+            data: null
+        })
         navigate("/login")
     }
     
@@ -26,3 +47,4 @@ const Navigation = ({loggedInUser,activateUser}) => {
     )
 } 
 export default Navigation
+
