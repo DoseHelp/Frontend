@@ -3,9 +3,12 @@ const Patient = ({patient}) => {
     return (
         
         <>
-            <p>{patient.id}</p>
+        {
+            [patient.id,patient.first_name,patient.surname]
+        }
+            {/* <p>{patient.id}</p>
             <p>{patient.first_name}</p>
-            <p>{patient.surname}</p>  
+            <p>{patient.surname}</p>   */}
         </>
     )
 } 

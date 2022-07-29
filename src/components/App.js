@@ -1,8 +1,8 @@
 import React, {useReducer}from 'react'
 // import Navigation from './Navigation'
-
 import Patients from './Patients'
 import PatientForm from './PatientForm'
+import PatientUpdate from './PatientUpdate'
 import DispenseForm from './DispenseForm'
 import Manage from './Manage'
 import Reports from './Reports'
@@ -15,6 +15,8 @@ import { reducer } from '../utils/reducer'
 import { StateContext } from '../utils/stateContext'
 import SignupForm from './SignupForm'
 import ResponsiveAppBar from './ResponsiveAppBar'
+import  'antd/dist/antd.min.css'
+import PatientDetail from './PatientDetails'
 
 const App = () => {
   //to have the user allover the app
@@ -52,13 +54,30 @@ return (
                   :
                     <Navigate to="/login" />
                   } />
+                
+                <Route path=":patientID" >
+                  <Route index element={
+                  loggedInUser?
+                    <PatientDetail/>
+                  :
+                    <Navigate to="/login" />
+                  } />
+                  <Route path = "edit" element={
+                    loggedInUser?
+                    <PatientUpdate />
+                  :
+                    <Navigate to="/login" />
+                  } />
+                  </Route>
+                  
                 </Route>
+
               <Route path="help" element={<Help />} />
               <Route path="dispense" element={<DispenseForm />} />
               <Route path="manage" element={<Manage />} />
               <Route path="reports" element={<Reports />} />
               <Route path="landing" element={<Landing />} />
-              
+             
               <Route path="signup" element={<SignupForm />} />
               <Route path="login" element={<LoginForm />} />
               <Route path = "logout" element= {<Navigate replace to="/login"/>}/>
