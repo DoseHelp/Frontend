@@ -44,7 +44,7 @@ const SignupForm = () => {
                     data: user.jwt
                 })
                 setFormData(initialFormData)
-                navigate("/messages")
+                navigate("/landing")
             }
             
         })
