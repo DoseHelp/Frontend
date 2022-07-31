@@ -32,6 +32,7 @@ export const reducer = (state, action) => {
         case "updatePatient": {
             //receives a patinet and update it to the list
             let updatedList= state.patientList.find(patient => patient.id === parseInt(action.data.id))
+            console.log("updatelist")
             console.log(updatedList)
             return {
                 ...state,

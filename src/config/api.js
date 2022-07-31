@@ -4,13 +4,13 @@ import axios from "axios";
 //     baseURL: 'https://dosehelp-api-staging.herokuapp.com'
 // })
 
-const dosehelpAPI = axios.create({
-    baseURL: 'http://localhost:4000'
-})
-
 // const dosehelpAPI = axios.create({
-//     baseURL: process.env.BACKEND_URL
+//     baseURL: 'http://localhost:4000'
 // })
+
+const dosehelpAPI = axios.create({
+    baseURL: process.env.BACKEND_URL
+})
 
 dosehelpAPI.interceptors.request.use(req => {
     // send the token in the request

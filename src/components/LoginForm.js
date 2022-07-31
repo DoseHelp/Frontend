@@ -15,6 +15,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Alert from '@mui/material/Alert';
 //--------Styling-End---------- 
 
 //--------Copy right----------
@@ -100,7 +101,7 @@ const LoginForm = () => {
 
     return (
         <ThemeProvider theme={theme}>
-             {error && <p>{error}</p>}
+             {error && <Alert severity="error">{error}</Alert>}
           <Container component="main" maxWidth="xs">
             <CssBaseline />
             <Box

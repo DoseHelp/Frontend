@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import {  getPatientByID, updatePatient } from "../services/patientServices"
 import { useGlobalState } from "../utils/stateContext"
+import Alert from '@mui/material/Alert'
 
 const PatientUpdate = () => {
     const {store, dispatch} = useGlobalState()
@@ -24,12 +25,16 @@ const PatientUpdate = () => {
     
 
     const [formData,setFormData]= useState(initialFormData)
-    
+    const [error, setError] = useState(null)
     useEffect( () => {
         getPatientByID(params.patientID)  
         .then(formData => {
+            if(formData.error){
+                console.log("formData.error", formData.error)
+                setError(formData.error)
+            }else{
             setFormData(formData)
-         
+            }
         })
         console.log("useEffect first")
         console.log(formData)
@@ -56,11 +61,16 @@ const PatientUpdate = () => {
     const updatePatientData = (data)=>{
         updatePatient (data)
         .then(patient =>{
-            dispatch({
-                type: "updatePatient",
-                data: patient
-            })
-            navigate(`/patients/${patient.id}`)
+            if(patient.error){
+            console.log("patient.error", patient.error)
+            setError(patient.error)
+            }else{
+                dispatch({
+                    type: "updatePatient",
+                    data: patient
+                })
+                navigate(`/patients/${patient.id}`)
+            }
         })
         .catch(e => { console.log(e) })
     }
@@ -70,6 +80,7 @@ const PatientUpdate = () => {
     }
     return (
         <>
+         {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
             <h3>{loggedInUser}</h3>
             <div>
