@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import { useGlobalState } from '../utils/stateContext'
 import Patient from './Patient'
 import * as React from 'react';

@@ -4,18 +4,18 @@ import { Typography } from "@mui/material"
 // import Patient from "./Patient"
 import { Button } from "antd"
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+//import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
-
-const Img = styled('img')({
-  margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
+ 
+// const Img = styled('img')({
+//   margin: 'auto',
+//   display: 'block',
+//   maxWidth: '100%',
+//   maxHeight: '100%',
+// });
 
 
 const PatientDetail = () => {
