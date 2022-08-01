@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
         case "updatePatient": {
             //receives a patinet and update it to the list
             let updatedList= state.patientList.find(patient => patient.id === parseInt(action.data.id))
-            console.log(updatedList)
+            
             return {
                 ...state,
                 messageList: updatedList
@@ -40,6 +40,7 @@ export const reducer = (state, action) => {
         }
         case "setLoggedInUser": {
             //updates the loggedInUser value
+            
             return {
                 ...state,
                 loggedInUser: action.data
@@ -47,7 +48,7 @@ export const reducer = (state, action) => {
             
         }
         case "setPatientData": {
-            //updates the loggedInUser value
+            //updates the patientData value
             return {
                 ...state,
                 patientData: action.data

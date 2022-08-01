@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { createPatient } from "../services/patientServices"
 import { useGlobalState } from "../utils/stateContext"
+import Alert from '@mui/material/Alert'
 
 const PatientForm = () => {
     const {store, dispatch} = useGlobalState()
@@ -18,6 +19,7 @@ const PatientForm = () => {
         ihi:""
     }
     const [formData,setFormData]= useState(initialFormData)
+    const [error, setError] = useState(null)
     const handleFormData = (e) =>{
         setFormData({
             ...formData,
@@ -34,11 +36,16 @@ const PatientForm = () => {
     const addPatient = (data)=>{
         createPatient (data)
         .then(patient =>{
-            dispatch({
-                type: "addPatient",
-                data: patient
-            })
-            navigate("/home")
+            if(patient.error){
+                console.log("patient.error", patient.error)
+                setError(patient.error)
+            }else{
+                dispatch({
+                    type: "addPatient",
+                    data: patient
+                })
+                navigate("/home")
+            }
         })
     }
     //to clean the form
@@ -47,6 +54,7 @@ const PatientForm = () => {
     }
     return (
         <>
+        {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={handleSubmit}>
             <h3>{loggedInUser}</h3>
             <div>

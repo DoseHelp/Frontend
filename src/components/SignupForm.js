@@ -8,7 +8,7 @@ const SignupForm = () => {
     const navigate = useNavigate()
     
     const initialFormData = {
-        username: "",
+        username: "", 
         email: "",
         password: "",
         password_confirmation: ""

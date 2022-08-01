@@ -3,7 +3,7 @@ import React, {useReducer}from 'react'
 import Patients from './Patients'
 import PatientForm from './PatientForm'
 import PatientUpdate from './PatientUpdate'
-import DispenseForm from './DispenseForm'
+import DispenseForm from './DispenseForm' 
 import Manage from './Manage'
 import Reports from './Reports'
 import Help from './Help'
@@ -12,11 +12,12 @@ import LoginForm from './LoginForm'
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import NotFound from './NotFound'
 import { reducer } from '../utils/reducer'
-import { StateContext } from '../utils/stateContext'
+import { StateContext } from '../utils/stateContext' 
 import SignupForm from './SignupForm'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import  'antd/dist/antd.min.css'
 import PatientDetail from './PatientDetails'
+import DispenseFormPatient from './DispenseFormPatient'
 
 const App = () => {
   //to have the user allover the app
@@ -27,6 +28,7 @@ const App = () => {
   }
   const [store, dispatch] = useReducer(reducer, initialState)
   const {loggedInUser} = store
+  const {patientList } = store
   //to get the data from api async
   
 return (
@@ -46,34 +48,20 @@ return (
       <ResponsiveAppBar /> 
             <Routes>
               <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
-              <Route path="patients">
-                <Route index element={<Patients/>}/>
-                <Route path="new" element={
-                  loggedInUser?
-                    <PatientForm loggedInUser={loggedInUser}/>
-                  :
-                    <Navigate to="/login" />
-                  } />
-                
-                <Route path=":patientID" >
-                  <Route index element={
-                  loggedInUser?
-                    <PatientDetail/>
-                  :
-                    <Navigate to="/login" />
-                  } />
-                  <Route path = "edit" element={
-                    loggedInUser?
-                    <PatientUpdate />
-                  :
-                    <Navigate to="/login" />
-                  } />
-                  </Route>
-                  
-                </Route>
 
+              <Route path="patients">
+                  <Route index element={loggedInUser ? <Patients/> :  <Navigate to="/login" />}/>
+                  <Route path="new" element= {loggedInUser ?<PatientForm loggedInUser={loggedInUser}/> : <Navigate to="/login" />} />
+                <Route path=":patientID" >
+                  <Route index element={ loggedInUser? <PatientDetail/> : <Navigate to="/login" />}/>
+                  <Route path = "edit" element={ loggedInUser?  <PatientUpdate />   : <Navigate to="/login" />  } />       
+              </Route>
+              </Route>  
               <Route path="help" element={<Help />} />
-              <Route path="dispense" element={<DispenseForm />} />
+              <Route path="dispense" loggedInUser={loggedInUser} patientList={patientList}>
+                <Route  index element={loggedInUser? <DispenseForm/> : <Navigate to="/login"/>}/>
+                <Route path= ":patientID" element={loggedInUser ? <DispenseFormPatient/> : <Navigate to="/login" />} />
+              </Route> 
               <Route path="manage" element={<Manage />} />
               <Route path="reports" element={<Reports />} />
               <Route path="landing" element={<Landing />} />
