@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { useGlobalState } from '../utils/stateContext'
-import Patient from './Patient'
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import 'antd/dist/antd.min.css';
