@@ -1,14 +1,14 @@
-
-import { useEffect, useState } from "react"
-import { useNavigate, useLocation, Navigate } from "react-router-dom"
+/*eslint-disable*/
+import {  useState } from "react"
+//import {  useLocation } from "react-router-dom"
 import { getPrescriptionByPID } from "../services/patientServices"
 import { useGlobalState } from '../utils/stateContext'
 import Alert from '@mui/material/Alert'
 const PatientSelector = () =>{
-    const {store,dispatch}= useGlobalState()
+    const {store}= useGlobalState()
     const {patientList} = store
-    const location = useLocation()
-    const [error, setError] = useState(null)
+    // const location = useLocation()
+    const [error] = useState(null)
    
     const initialPatientData = {
         id:"",
@@ -22,16 +22,7 @@ const PatientSelector = () =>{
         updated_at:"",
         credit: ""
     }
-    const initialPrescription={
-        id:"",
-        issue_date:"",
-        expiry_date:"",
-        takeaway:"",
-        doctor_id:"",
-        patient_id:"",
-        drug_id:"",
-        prescription_valid:""
-    }
+    
     const initialPrescriptionList=[]
     //const[prescription,setPresption]=useState(initialPrescription)
     const [prescriptionsList,setPrescriptionsList]=useState(initialPrescriptionList)

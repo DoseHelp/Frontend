@@ -6,8 +6,8 @@ import Alert from '@mui/material/Alert'
 import PatientSelector from "./PatientSelector"
 
 const DispenseForm = () => {
-    const {store, dispatch} = useGlobalState()
-    const {loggedInUser}= store
+    const { dispatch} = useGlobalState()
+    // const {loggedInUser}= store
     const navigate = useNavigate()
     const initialFormData = {
         id:"",
@@ -16,12 +16,12 @@ const DispenseForm = () => {
     }
     const [formData,setFormData]= useState(initialFormData)
     const [error, setError] = useState(null)
-    const handleFormData = (e) =>{
-        setFormData({
-            ...formData,
-            [e.target.id]: e.target.value
-        })
-    }
+    // const handleFormData = (e) =>{
+    //     setFormData({
+    //         ...formData,
+    //         [e.target.id]: e.target.value
+    //     })
+    // }
     // to add the patient to the list
     const handleSubmit =(e) =>{
         e.preventDefault()
