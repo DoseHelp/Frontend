@@ -98,6 +98,10 @@ const ResponsiveAppBar = () => {
         type: "setToken",
         data: null
       })
+      dispatch({
+        type: "setUserID",
+        data: ""
+      })
       deleteItems()
   }
   useEffect(() => {

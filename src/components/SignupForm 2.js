@@ -8,7 +8,7 @@ const SignupForm = () => {
     const navigate = useNavigate()
     
     const initialFormData = {
-        username: "",
+        username: "", 
         email: "",
         password: "",
         password_confirmation: ""
@@ -33,8 +33,10 @@ const SignupForm = () => {
                 setError(errorMessage)
             }
             else {
-                sessionStorage.setItem("username",  user.username)
-                sessionStorage.setItem("token", user.jwt)
+                window.sessionStorage.setItem("username",  user.username)
+                window.sessionStorage.setItem("token", user.jwt)
+                window.sessionStorage.setItem("userID", user.userID)
+                
                 dispatch({
                     type: "setLoggedInUser",
                     data: user.username
@@ -42,6 +44,10 @@ const SignupForm = () => {
                 dispatch({
                     type: "setToken",
                     data: user.jwt
+                })
+                dispatch({
+                    type: "setUserID",
+                    data: user.userID
                 })
                 setFormData(initialFormData)
                 navigate("/landing")

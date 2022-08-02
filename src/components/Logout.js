@@ -15,6 +15,10 @@ const Logout = () => {
             type: "setToken",
             data: null
         })
+        dispatch({
+          type: "setUserID",
+          data: ""
+      })
         
       }, []);
     return (

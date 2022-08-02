@@ -1,12 +1,14 @@
-/*eslint-disable*/
+///*eslint-disable*/
 import {  useState } from "react"
 //import {  useLocation } from "react-router-dom"
 import { getPrescriptionByPID } from "../services/patientServices"
 import { useGlobalState } from '../utils/stateContext'
 import Alert from '@mui/material/Alert'
+import { useNavigate } from "react-router-dom"
 const PatientSelector = () =>{
     const {store}= useGlobalState()
     const {patientList} = store
+    const navigate = useNavigate()
     // const location = useLocation()
     const [error] = useState(null)
    
@@ -27,7 +29,10 @@ const PatientSelector = () =>{
     //const[prescription,setPresption]=useState(initialPrescription)
     const [prescriptionsList,setPrescriptionsList]=useState(initialPrescriptionList)
     const [patientData,setPatientData]=useState(initialPatientData)
-    
+    const handlePrescriptionClick=(pxID)=>
+    {
+        navigate(`/dispense/${patientData.id}/${pxID}`)
+    }
     const handlePatient=(e)=>{
         let selectedPatient = patientList.filter((patientData)=>{if(patientData.id == e.target.value){return patientData}});
         console.log(selectedPatient[0])
@@ -61,7 +66,7 @@ const PatientSelector = () =>{
             <h3>Prescription</h3>
             <ul>
             {prescriptionsList.map(px => {
-                return <li key={px.id}>{px.issue_date}</li>
+                return <li key={px.id}>{px.issue_date}<button onClick={handlePrescriptionClick(px.id)}>Dispense</button></li>
             })}
             </ul>
             {/* <select value={prescription} onChange={(e)=>{handlePatient(e)}}>

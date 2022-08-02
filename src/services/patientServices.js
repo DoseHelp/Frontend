@@ -19,6 +19,15 @@ export async function getPatientByID (id){
    
     return response.data
 }
+
+
+export async function getPrescription(id){
+    
+    const response = await dosehelpAPI.get(`/prescriptions/${id}`)
+   
+    return response.data
+}
+
 export async function getPrescriptionByPID (id){
     
     const response = await dosehelpAPI.get(`/patients/${id}/prescriptions`)
@@ -30,6 +39,7 @@ export async function createPatient(data){
     return response.data
 }
 export async function createDispense(data){
+    
     const response = await dosehelpAPI.post('/dispenses', data)
     return response.data
 }

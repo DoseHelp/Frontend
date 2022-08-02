@@ -1,4 +1,4 @@
-/* eslint-disable */
+///* eslint-disable */
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { signIn } from "../services/authServices"
@@ -58,8 +58,15 @@ const LoginForm = () => {
                 setError(user.error)
             }else{
                 setError(null)
+                sessionStorage.clear()
+                sessionStorage.setItem("userID",  user.userID)
                 sessionStorage.setItem("username",  user.username)
-                sessionStorage.setItem("token", user.jwt)
+                sessionStorage.setItem("token",   user.jwt)
+                
+                dispatch({
+                  type: "setUserID",
+                  data: user.userID
+              })
                 dispatch({
                     type: "setLoggedInUser",
                     data: user.username
@@ -68,6 +75,7 @@ const LoginForm = () => {
                     type: "setToken",
                     data: user.jwt
                 })
+                
                 setFormData(initialFormData)
                 navigate("/Landing")
             }
@@ -96,6 +104,10 @@ const LoginForm = () => {
           type: "setToken",
           data: null
       })
+      dispatch({
+        type: "setUserID",
+        data: ""
+    })
       
     }, []);
 
