@@ -11,25 +11,30 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import ButtonBase from '@mui/material/ButtonBase';
-import { getPrescription, getPrescriptionByPID } from "../services/patientServices";
- 
+import {  getPrescriptionByPID } from "../services/patientServices";
+import {getDrugByID,getDoctorByID} from "../services/manageServices"; 
 
 
-const PrescriptionDetail = () => {
+const PrescriptionDetail = props => {
    
     const params = useParams()
     console.log(params)
     const [prescriptionData,setPrescriptionData]= useState([])
+    
     const [error, setError] = useState(null)
     const {store, dispatch} = useGlobalState()
+  
+
    
-   const handlePrescriptionID =(e)=>{
+   const handlePrescriptionID =(px_id,drug_cost)=>{
         dispatch({
             type: "setPrescriptionID",
-            data: e.target.value
+            data: px_id
         })
+        props.passPrice(drug_cost)
    }
     useEffect( () => {
+        // get the details of prescription
         getPrescriptionByPID(params.patientID)  
         .then(prescriptionData => {
             if(prescriptionData.error){
@@ -41,6 +46,7 @@ const PrescriptionDetail = () => {
             }
         })
        
+       //get details of a doctor
        
       }, []);
     
@@ -63,8 +69,8 @@ const PrescriptionDetail = () => {
         {
             prescriptionData.map(px =>
             <div key = {px.id}>
-             <label htmlFor={px.id}> Expiry Date:{px.expiry_date} Drug: {px.drug_id} Doctor: {px.doctor_id}</label> 
-             <input  type="radio" id={px.id} name={px.id} value={px.id} onChange ={handlePrescriptionID}/> <br></br>
+             <label htmlFor={px.id}> Expiry Date:{px.expiry_date} Drug: {px.drug_id} Drug name : {px.drug.name} costs: ${px.drug.cost} Doctor: {px.doctor.first_name}</label> 
+             <input  type="radio" id={px.id} name={px.id} value={px.id} onChange ={()=>{ handlePrescriptionID(px.id,px.drug.cost)}}/> <br></br>
              </div> )
         }
         </> 

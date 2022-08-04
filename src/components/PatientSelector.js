@@ -1,14 +1,15 @@
-/*eslint-disable*/
+///*eslint-disable*/
 import {  useState } from "react"
 //import {  useLocation } from "react-router-dom"
 
 import { useGlobalState } from '../utils/stateContext'
 import Alert from '@mui/material/Alert'
 import Prescriptions from "./Prescriptions"
+
 const PatientSelector = () =>{
-    const {store}= useGlobalState()
+    const {store,dispatch}= useGlobalState()
     const {patientList} = store
-  
+    const {patientData} = store
     // const location = useLocation()
     const [error] = useState(null)
    
@@ -25,19 +26,26 @@ const PatientSelector = () =>{
         credit: ""
     }
     
-    
+
     //const[prescription,setPresption]=useState(initialPrescription)
-    const [patientData,setPatientData]=useState(initialPatientData)
+   
     const handlePatient=(e)=>{
         let selectedPatient = patientList.filter((patientData)=>{if(patientData.id == e.target.value){return patientData}});
         console.log(selectedPatient)
         if (selectedPatient[0]) 
         { 
-            setPatientData(selectedPatient[0]) 
+            dispatch({
+                type: "setPatientData",
+                data: selectedPatient[0]
+            })
+            //setPatientData(selectedPatient[0]) 
         }
         else
         {
-            setPatientData(initialPatientData) 
+            dispatch({
+                type: "setPatientData",
+                data: initialPatientData
+            })
         }
         
     }
