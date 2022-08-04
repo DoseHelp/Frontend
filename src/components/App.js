@@ -4,6 +4,7 @@ import Patients from './Patients'
 import PatientForm from './PatientForm'
 import PatientUpdate from './PatientUpdate'
 import DispenseForm from './DispenseForm' 
+import DispenseFormPatientPx from './DispenseFormPatientPx'
 import Manage from './Manage'
 import Reports from './Reports'
 import Help from './Help'
@@ -23,12 +24,14 @@ const App = () => {
   //to have the user allover the app
   const initialState = {
     patientList: [],
-    loggedInUser: sessionStorage.getItem("username"),
-    token: sessionStorage.getItem("token") || null
+    loggedInUser: window.sessionStorage.getItem("username"),
+    userID: window.sessionStorage.getItem("userID") || "",
+    token: window.sessionStorage.getItem("token") || null
   }
   const [store, dispatch] = useReducer(reducer, initialState)
   const {loggedInUser} = store
   const {patientList } = store
+  
   //to get the data from api async
   
 return (
@@ -61,6 +64,7 @@ return (
               <Route path="dispense" loggedInUser={loggedInUser} patientList={patientList}>
                 <Route  index element={loggedInUser? <DispenseForm/> : <Navigate to="/login"/>}/>
                 <Route path= ":patientID" element={loggedInUser ? <DispenseFormPatient/> : <Navigate to="/login" />} />
+                <Route path= ":patientID/:pxID" element={loggedInUser ? <DispenseFormPatientPx/> : <Navigate to="/login" />} />
               </Route> 
               <Route path="manage" element={<Manage />} />
               <Route path="reports" element={<Reports />} />

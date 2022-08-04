@@ -27,33 +27,27 @@ export const reducer = (state, action) => {
                 patientList: [action.data, ...state.patientList]
             }
         }
-
-        
-        case "updatePatient": {
-            //receives a patinet and update it to the list
-            let updatedList= state.patientList.find(patient => patient.id === parseInt(action.data.id))
-            
-            return {
-                ...state,
-                messageList: updatedList
-            }
-        }
         case "setLoggedInUser": {
             //updates the loggedInUser value
-            
             return {
                 ...state,
                 loggedInUser: action.data
             }
             
         }
-        case "setPatientData": {
-            //updates the patientData value
+        case "setUserID": {
+            //updates the userId value
             return {
                 ...state,
-                patientData: action.data
+                userID: action.data
             }
             
+        }
+        case "setPrescriptionID": {
+            return{
+                ...state,
+                prescriptionID: action.data
+            }
         }
         
         case "setAnchorElNav": {

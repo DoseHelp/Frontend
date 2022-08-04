@@ -27,6 +27,10 @@ const Navigation = () => {
             type: "setToken",
             data: null
         })
+        dispatch({
+            type: "userID",
+            data: ""
+        })
         navigate("/login")
     }
     
@@ -40,7 +44,7 @@ const Navigation = () => {
                     <Link to = "/manage">Manage</Link>
                     <Link to = "/help">Help</Link>
                     <div>{loggedInUser}</div> 
-                    <Link to = "/" onClick={logout} >Log Out</Link>
+                    <Link id = "logout" to = "/" onClick={logout} >Log Out</Link>
                 </>
             }
         </nav>

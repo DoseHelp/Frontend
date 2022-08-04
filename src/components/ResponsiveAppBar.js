@@ -1,6 +1,6 @@
-  /* eslint-disable */
-import { useEffect, useState } from "react";
-import { useNavigate, useLocation, Navigate } from "react-router-dom"
+/* eslint-disable */
+import * as React from 'react';
+import { useNavigate, useLocation } from "react-router-dom"
 import { useGlobalState } from "../utils/stateContext"
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,23 +15,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
+import { useEffect } from 'react';
 import { getPatients } from '../services/patientServices';
 import { StateContext } from '../utils/stateContext'
-import StyledMenu from './StyledMenu';
-import EditIcon from '@mui/icons-material/Edit';
-import PersonIcon from '@mui/icons-material/Person';
-import Divider from '@mui/material/Divider';
-import VaccinesIcon from '@mui/icons-material/Vaccines';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import Alert from '@mui/material/Alert';
 
 const pages = ['home', 'patients', 'manage','help','logout' ];
 const settings = ['Logout'];
 
-
 const ResponsiveAppBar = () => {
-  const navigate = useNavigate()
+ 
   const {store,dispatch} = useGlobalState()
   const {loggedInUser} = store
   const {anchorElNav} = store
@@ -62,13 +54,13 @@ const ResponsiveAppBar = () => {
   const handleClickNavMenu = (e) => {
     
   };
-  // const handleOpenUserMenu = (e) => {
+  const handleOpenUserMenu = (e) => {
    
-  //   dispatch({
-  //       type: "setAnchorElUser",
-  //       data: e.target.value
-  //   })
-  // };
+    dispatch({
+        type: "setAnchorElUser",
+        data: e.target.value
+    })
+  };
 
   const handleCloseNavMenu = () => {
     console.log("handleCloseNavMenu")
@@ -78,18 +70,16 @@ const ResponsiveAppBar = () => {
     })
   };
 
-  // const handleCloseUserMenu = () => {
-  //   dispatch({
-  //       type: "setAnchorElUser",
-  //       data: null
-  //   })
-  // };
-  const deleteItems=()=> {
-    sessionStorage.clear();
-     navigate("/login")
-  }
+  const handleCloseUserMenu = () => {
+    dispatch({
+        type: "setAnchorElUser",
+        data: null
+    })
+  };
+
   //to log out//
   const logout = ()=>{
+    console.log("logedout")
       dispatch({
         type: "setLoggedInUser",
         data: ""
@@ -98,37 +88,20 @@ const ResponsiveAppBar = () => {
         type: "setToken",
         data: null
       })
-      deleteItems()
+     
   }
   useEffect(() => {
     getPatients()
     .then(patients => {
-      if(patients.error){
-        console.log("patients.error", patients.error)
-        setError(patients.error)
-      }else{
-        setError(null)
-        dispatch({
+      dispatch({
         type: "setPatientsList",
         data: patients
-        })
-      }
+      })
     })
   }, [dispatch]);
- 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [error, setError] = useState(null)
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
+  
   return (
     <StateContext.Provider value={{store, dispatch}}>
-    {error && <Alert severity="error">{error}</Alert>}
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -190,7 +163,7 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
                 :
                 <MenuItem key={page} value={page.toLowerCase()} >
-                  <Typography textAlign="center" onClick={logout} >LogIn </Typography>
+                  <Typography textAlign="center" onClick={logout} href= {"/login"}>LogIn </Typography>
                 </MenuItem>
                 :
                 <MenuItem key="login" value ="login" >
@@ -218,96 +191,51 @@ const ResponsiveAppBar = () => {
           >
             DoseHelp
           </Typography>
-          {/* NAV BAR ITEMS */}
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {loggedInUser &&
-              <>
-                <Button
-                  key= "home"
-                  value="home"
-                  href= "/home"
-                  onClick={handleClickNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}>
-                  HOME
-                </Button> 
+            pages.map((page) => ( 
 
-
-
-                <Button
-                  key= "patients"
-                  value="patients"
-                  href= "/patients"
-                  onClick={handleClickNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}>
-                  PATIENTS
-                </Button> 
-                
-                
-                
-                <Button
-                  key= "manage"
-                  value="manage"
-                  sx={{ my: 2, color: 'white'}}
-                  id="demo-customized-button"
-                  aria-controls={open ? 'demo-customized-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  variant="contained"
-                  disableElevation
-                  onClick={handleClick}
-                  endIcon={<KeyboardArrowDownIcon />}>
-                  manage
-                </Button> 
-                <StyledMenu
-                    id="demo-customized-menu"
-                    MenuListProps={{
-                      'aria-labelledby': 'demo-customized-button',
-                    }}
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <EditIcon />
-                      Doctors
-                    </MenuItem>
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <VaccinesIcon />
-                      Drugs
-                    </MenuItem>
-                    <Divider sx={{ my: 0.5 }} />
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <FileCopyIcon />
-                      Reports
-                    </MenuItem>
-                    <MenuItem onClick={handleClose} disableRipple>
-                      <PersonIcon />
-                      Users
-                    </MenuItem>
-                  </StyledMenu>
-
-
-                  <Button
-                  key= "logout"
-                  value="logout"
-                  onClick={logout}
-                  sx={{ my: 2, color: 'white', display: 'block' }}>
-                  LOGOUT
-                </Button> 
-              </>
-            }
-
+              <Button
+                key={page}
+                value={page.toLowerCase()}
+                href= {"/"+page.toLowerCase()}
+                onClick={handleClickNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}>
+                {page}
+              </Button>
+            ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton  sx={{ p: 0 }}>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt={loggedInUser} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
-            
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              {settings.map((setting) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">{setting}</Typography>
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
-
         </Toolbar>
       </Container>
     </AppBar>
@@ -322,15 +250,11 @@ const displayPatients = (location, dispatch, setError) =>{
       if   (location.pathname === "/patients") {
         getPatients()
           .then(patients => {
-            if(patients.error){
-              console.log("patients.error", patients.error)
-              setError(patients.error)
-             }else{
-              dispatch({
-                type: "setPatientList",
-                data: patients
-              })
-          }
+            // console.log("all patients")
+            dispatch({
+              type: "setPatientList",
+              data: patients
+            })
           })
           .catch(e => { console.log(e) })
       }
