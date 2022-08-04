@@ -4,6 +4,7 @@ import Patients from './Patients'
 import PatientForm from './PatientForm'
 import PatientUpdate from './PatientUpdate'
 import DispenseForm from './DispenseForm' 
+import DispenseFormPatientPx from './DispenseFormPatientPx'
 import Manage from './Manage'
 import Reports from './Reports'
 import Help from './Help'
@@ -62,7 +63,8 @@ return (
               <Route path="help" element={<Help />} />
               <Route path="dispense" loggedInUser={loggedInUser} patientList={patientList}>
                 <Route  index element={loggedInUser? <DispenseForm/> : <Navigate to="/login"/>}/>
-                <Route path= ":patientID/:pxID" element={loggedInUser ? <DispenseFormPatient/> : <Navigate to="/login" />} />
+                <Route path= ":patientID" element={loggedInUser ? <DispenseFormPatient/> : <Navigate to="/login" />} />
+                <Route path= ":patientID/:pxID" element={loggedInUser ? <DispenseFormPatientPx/> : <Navigate to="/login" />} />
               </Route> 
               <Route path="manage" element={<Manage />} />
               <Route path="reports" element={<Reports />} />

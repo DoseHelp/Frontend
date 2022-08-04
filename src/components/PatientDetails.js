@@ -31,12 +31,14 @@ const PatientDetail = () => {
     
     const patient = getPatient(params.patientID)
     const handleClick = (e) => {
+      
         console.log(e.currentTarget.value)
         navigate("/patients/"+e.currentTarget.value + "/edit")
-        // dispatch({
-        //     type: "getPatient",
-        //     data: e.target.value
-        // })
+       
+      };
+      const handleClickPrescription = (e) => {
+     
+        navigate(`/dispense/${e.currentTarget.value}` )
        
       };
    
@@ -86,7 +88,9 @@ const PatientDetail = () => {
                         </Grid>
                         <Grid item>
                             <Typography sx={{ cursor: 'pointer' }} variant="body2">
-                            <Button variant="outlined" value = {patient.id} onClick={handleClick}>Edit</Button>
+                            <Button variant="contained" value = {patient.id} onClick={handleClick}>Edit</Button>
+                            <Button variant="contained" value = {patient.id} onClick={handleClickPrescription}>Prescription</Button>
+                            
                             </Typography>
                         </Grid>
                         </Grid>
