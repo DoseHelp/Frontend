@@ -19,7 +19,8 @@ const DispenseFormPatient = () => {
             console.log("dispense.error", dispense.error)
             setError(dispense.error)
              }else{
-             console.log(dispense.data)
+                
+             console.log(dispense)
              }
             })
    }
