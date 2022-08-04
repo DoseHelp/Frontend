@@ -30,10 +30,14 @@ const PatientSelector = () =>{
     const [patientData,setPatientData]=useState(initialPatientData)
     const handlePatient=(e)=>{
         let selectedPatient = patientList.filter((patientData)=>{if(patientData.id == e.target.value){return patientData}});
-        if (selectedPatient[0]==="") 
+        console.log(selectedPatient)
+        if (selectedPatient[0]) 
         { 
-          
             setPatientData(selectedPatient[0]) 
+        }
+        else
+        {
+            setPatientData(initialPatientData) 
         }
         
     }
@@ -46,7 +50,7 @@ const PatientSelector = () =>{
           { patientData ? 
           <>
             <select value={patientData.id} onChange={(e)=>{handlePatient(e)}}>
-                    <option key = "0" value= "0">Select Patient</option> 
+                   <option key = "0" value= "0">Select Patient</option> 
                     {patientList.map((p) =>(
                     <option key={p.id} value={p.id}>{p.first_name + "  "+p.surname}</option>
                 )  )}

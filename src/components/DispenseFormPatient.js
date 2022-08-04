@@ -5,12 +5,16 @@ import PrescriptionDetail from "./PrescriptionDetail"
 import { Button } from "antd"
 import Paper from '@mui/material/Paper';
 import { createDispense } from "../services/patientServices"
+import { useGlobalState } from "../utils/stateContext"
 
 const DispenseFormPatient = () => {
     const params = useParams()
     console.log(params)
+    
+    const {store} = useGlobalState()
+    const {prescriptionID} = store
     const userID =  sessionStorage.getItem("userID")
-    const dispenseData = {prescription_id:params.pxID,user_id:userID}
+    const dispenseData = {prescription_id:prescriptionID,user_id:userID}
     const [error, setError] = useState(null)
     const handleDispense = () =>{
         createDispense(dispenseData)

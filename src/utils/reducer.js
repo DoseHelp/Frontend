@@ -43,7 +43,12 @@ export const reducer = (state, action) => {
             }
             
         }
-       
+        case "setPrescriptionID": {
+            return{
+                ...state,
+                prescriptionID: action.data
+            }
+        }
         
         case "setAnchorElNav": {
             return{

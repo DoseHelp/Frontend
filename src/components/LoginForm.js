@@ -162,6 +162,7 @@ const LoginForm = () => {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  id = "signin"
                 >
                   Sign In
                 </Button>
