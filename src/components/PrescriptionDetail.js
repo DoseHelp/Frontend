@@ -1,18 +1,17 @@
- // /* eslint-disable */
+/* eslint-disable */
 import { useState,useEffect } from "react"
-import { Link, useParams } from "react-router-dom"
+import {  useParams } from "react-router-dom"
 import { useGlobalState } from "../utils/stateContext"
 import Alert from '@mui/material/Alert';
-import { CardActionArea, CardContent, Typography } from "@mui/material"
-import { Card } from "@material-ui/core";
-import { Pages } from "@mui/icons-material";
+import {   Typography } from "@mui/material"
+
 import * as React from 'react';
 
-import Grid from '@mui/material/Grid';
+
 import Paper from '@mui/material/Paper';
-import ButtonBase from '@mui/material/ButtonBase';
+
 import {  getPrescriptionByPID } from "../services/patientServices";
-import {getDrugByID,getDoctorByID} from "../services/manageServices"; 
+
 
 
 const PrescriptionDetail = props => {
@@ -22,7 +21,7 @@ const PrescriptionDetail = props => {
     const [prescriptionData,setPrescriptionData]= useState([])
     
     const [error, setError] = useState(null)
-    const {store, dispatch} = useGlobalState()
+    const { dispatch} = useGlobalState()
     const [flagClick, setflagClick] = useState(false);
 
    

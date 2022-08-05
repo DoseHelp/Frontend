@@ -1,4 +1,4 @@
-import Avatar from '@mui/material/Avatar';
+
 import IconButton from '@mui/material/IconButton';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';

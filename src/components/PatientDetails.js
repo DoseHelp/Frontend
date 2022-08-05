@@ -1,16 +1,17 @@
+/* eslint-disable*/
 import { Link, useNavigate, useParams } from "react-router-dom"
 import { useGlobalState } from "../utils/stateContext"
 import { Typography } from "@mui/material"
 // import Patient from "./Patient"
 import { Button } from "antd"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 //import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ButtonBase from '@mui/material/ButtonBase';
 
- 
+  
 // const Img = styled('img')({
 //   margin: 'auto',
 //   display: 'block',
@@ -22,22 +23,11 @@ import ButtonBase from '@mui/material/ButtonBase';
 const PatientDetail = () => {
     const {store,dispatch} = useGlobalState()    
     const {patientList} = store
-    const {patientData} = store
+   
     const params = useParams()
     console.log(params)
     const navigate = useNavigate()
-    const initialPatientData = {
-        id:"",
-        first_name:"",
-        surname:""	,
-        dob:""	,
-        address:""	,
-        phone:""	,
-        gender:""	,
-        ihi:"",
-        updated_at:"",
-        credit: ""
-    }
+   
     
     const getPatient = (id) => {
     

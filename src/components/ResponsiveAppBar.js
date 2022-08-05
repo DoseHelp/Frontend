@@ -1,6 +1,6 @@
-///* eslint-disable */
+/* eslint-disable */
 import * as React from 'react';
-import { useNavigate, useLocation } from "react-router-dom"
+import {useLocation } from "react-router-dom"
 import { useGlobalState } from "../utils/stateContext"
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -10,9 +10,7 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
 import { useEffect } from 'react';
@@ -20,14 +18,14 @@ import { getPatients } from '../services/patientServices';
 import { StateContext } from '../utils/stateContext'
 
 const pages = ['home', 'patients', 'manage','help','logout' ];
-const settings = ['Logout'];
+
 
 const ResponsiveAppBar = () => {
  
   const {store,dispatch} = useGlobalState()
   const {loggedInUser} = store
   const {anchorElNav} = store
-  const {anchorElUser} = store
+  
   
   const location = useLocation()
       useEffect(
@@ -54,14 +52,7 @@ const ResponsiveAppBar = () => {
   const handleClickNavMenu = (e) => {
     
   };
-  const handleOpenUserMenu = (e) => {
-   
-    dispatch({
-        type: "setAnchorElUser",
-        data: e.target.value
-    })
-  };
-
+  
   const handleCloseNavMenu = () => {
     console.log("handleCloseNavMenu")
     dispatch({
@@ -70,12 +61,7 @@ const ResponsiveAppBar = () => {
     })
   };
 
-  const handleCloseUserMenu = () => {
-    dispatch({
-        type: "setAnchorElUser",
-        data: null
-    })
-  };
+  
 
   //to log out//
   const logout = ()=>{

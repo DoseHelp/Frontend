@@ -41,4 +41,4 @@ describe('/',() => {
 		const homeHeader = queryByText(/Patientsr/i)
 		expect(homeHeader).toBeVisible()
 	})
-})
+}) 
