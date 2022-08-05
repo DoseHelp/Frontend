@@ -1,33 +1,44 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import {fireEvent, render } from '@testing-library/react';
 import App from '../components/App';
 
+describe("login desribe statment",() => {
+	test('login form should be in the document', () => {
+		const component = render(<App />)
+		  const inputNode = component.getByText("Email Address")
+		expect (inputNode).toBeInTheDocument
+	});
+	
+	test('login form should be in the document and have a password', () => {
+		const component = render(<App />)
+		  const passwordInput = component.getByText("Password")
+		expect (passwordInput).toBeInTheDocument
+	});
+	
+})
 
-test('renders basic app with logos', () => {
-  const { getAllByText } = render(<App />);
-  const linkElement = getAllByText(/DoseHelp/i);
-  expect(linkElement.length).toEqual(3);
-});
 
-function logInUser(getByTestId) {
-	fireEvent.change(getByTestId('email'), {target: {value: 'eman@email.com'}})
-  fireEvent.change(getByTestId('password'), {target: {value: '123456'}})
-	fireEvent.click(getByTestId('signin'))
-}
-describe('Sign Out button', () => {
-	it('does not render Sign in button if  logged in user', () => {
-		const {queryByTestId} = render(<App />)
-		expect(queryByTestId('signin')).not.toBeInTheDocument()
+describe('renders Home', () => {
+	it('renders landing link', () => {
+		const {queryByText} = render(<App />)
+		const landingLink = queryByText(/landing/i)
+		expect(landingLink).toBeVisible()
 	})
-	it('does render Sign Out button when logged in user', async () => {
-		const {getByTestId} = render(<App />)
-		logInUser(getByTestId)
-		const logoutButton = await getByTestId('logout')
-		expect(logoutButton).toBeInTheDocument()
+	it('renders patients List link', () => {
+		const {queryByText} = render(<App />)
+		const pokeListLink = queryByText(/patients list/i)
+		expect(pokeListLink).toBeVisible()
 	})
 })
-test('renders signout when signedin user', () => {
-  const { getAllByText } = render(<ResponsiveAppBar />);
-  const linkElement = getAllByText(/DoseHelp/i);
-  expect(linkElement.length).toEqual(3);
-});
+
+
+
+describe('/',() => {
+	it('routes to Home', () => {
+		const {queryByText} = render(<App />)
+		const home = queryAllByText(/home/i)
+		fireEvent.click(home[0])
+		const homeHeader = queryByText(/Patientsr/i)
+		expect(homeHeader).toBeVisible()
+	})
+})

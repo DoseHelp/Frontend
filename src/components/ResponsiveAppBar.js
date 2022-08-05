@@ -79,6 +79,7 @@ const ResponsiveAppBar = () => {
 
   //to log out//
   const logout = ()=>{
+    sessionStorage.clear()
     console.log("logedout")
       dispatch({
         type: "setLoggedInUser",
@@ -157,14 +158,15 @@ const ResponsiveAppBar = () => {
               
               {loggedInUser && pages.map((page) => (
                 loggedInUser ?
-                  page !== "logout" ?
-                <MenuItem key={page} value ={page.toLowerCase()} >
-                  <Typography textAlign="center" href= {"/"+page.toLowerCase()}>{page}</Typography>
-                </MenuItem>
-                :
-                <MenuItem key={page} value={page.toLowerCase()} >
-                  <Typography textAlign="center" onClick={logout} href= {"/login"}>LogIn </Typography>
-                </MenuItem>
+                 page !== "logout" ?
+                    <MenuItem key={page} value ={page.toLowerCase()} >
+                      <Typography textAlign="center" href= {"/"+page.toLowerCase()}>{page}</Typography>
+                    </MenuItem>
+                 
+                  :
+                    <MenuItem key={page} value={page.toLowerCase()} >
+                      <Typography textAlign="center" onClick={()=> logout} >Logout </Typography>
+                    </MenuItem>
                 :
                 <MenuItem key="login" value ="login" >
                   <Typography textAlign="center" href= {"/login"}>LogIn</Typography>
@@ -193,49 +195,41 @@ const ResponsiveAppBar = () => {
           </Typography>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {loggedInUser &&
-            pages.map((page) => ( 
-
+            {loggedInUser && pages.map((page) => ( 
+              loggedInUser ?
+                  page !== "logout" ?
+                      <Button
+                        key={page}
+                        value={page.toLowerCase()}
+                        href= {"/"+page.toLowerCase()}
+                        onClick={handleClickNavMenu}
+                        sx={{ my: 2, color: 'white', display: 'block' }}>
+                        {page}
+                      </Button>
+              :
+                      <Button
+                      key={page}
+                      value={page.toLowerCase()}
+                      href= {"/"+page.toLowerCase()}
+                      onClick={()=>{logout()}}
+                      sx={{ my: 2, color: 'white', display: 'block' }}>
+                      {page}
+                      </Button>
+              :
               <Button
-                key={page}
-                value={page.toLowerCase()}
-                href= {"/"+page.toLowerCase()}
-                onClick={handleClickNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}>
-                {page}
+              key="Login"
+              value={page.toLowerCase()}
+              href= {"/"+page.toLowerCase()}
+              sx={{ my: 2, color: 'white', display: 'block' }}>
+              {page}
               </Button>
-            ))}
+              )
+            
+ )}
+            
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={loggedInUser} src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          
         </Toolbar>
       </Container>
     </AppBar>

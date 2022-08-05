@@ -1,11 +1,11 @@
-  /* eslint-disable */
+ // /* eslint-disable */
 import { useState,useEffect } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useGlobalState } from "../utils/stateContext"
 import Alert from '@mui/material/Alert';
-import { Typography } from "@mui/material"
-
-
+import { CardActionArea, CardContent, Typography } from "@mui/material"
+import { Card } from "@material-ui/core";
+import { Pages } from "@mui/icons-material";
 import * as React from 'react';
 
 import Grid from '@mui/material/Grid';
@@ -23,7 +23,7 @@ const PrescriptionDetail = props => {
     
     const [error, setError] = useState(null)
     const {store, dispatch} = useGlobalState()
-  
+    const [flagClick, setflagClick] = useState(false);
 
    
    const handlePrescriptionID =(px_id,drug_cost)=>{
@@ -32,6 +32,7 @@ const PrescriptionDetail = props => {
             data: px_id
         })
         props.passPrice(drug_cost)
+        setflagClick(!flagClick);
    }
     useEffect( () => {
         // get the details of prescription
@@ -69,9 +70,20 @@ const PrescriptionDetail = props => {
         {
             prescriptionData.map(px =>
             <div key = {px.id}>
-             <label htmlFor={px.id}> Expiry Date:{px.expiry_date} Drug: {px.drug_id} Drug name : {px.drug.name} costs: ${px.drug.cost} Doctor: {px.doctor.first_name}</label> 
-             <input  type="radio" id={px.id} name={px.id} value={px.id} onChange ={()=>{ handlePrescriptionID(px.id,px.drug.cost)}}/> <br></br>
-             </div> )
+           
+             
+             <div id={px.id} name={px.id} value={px.id} onClick ={()=>{ handlePrescriptionID(px.id,px.drug.cost)} } style={flagClick ? { backgroundColor: "lightgray" }: { backgroundColor: "gray" }} > 
+                 
+                     <Typography>Expiry Date:{px.expiry_date} </Typography>
+                     <Typography>Drug: {px.drug_id}</Typography>
+                     <Typography> Drug name : {px.drug.name} </Typography>
+                     <Typography>costs: ${px.drug.cost} </Typography>
+                     <Typography>Doctor: {px.doctor.first_name}</Typography>
+                 
+              </div>
+       
+             </div>)
+             
         }
         </> 
             :

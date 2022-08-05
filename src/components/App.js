@@ -50,7 +50,7 @@ return (
       <Router>
       <ResponsiveAppBar /> 
             <Routes>
-              <Route path="/" element={!loggedInUser && <Navigate to="login"/>} />
+              <Route path="/" element={loggedInUser ? <Navigate replace to="/landing"/> : <Navigate to="login"/>} />
 
               <Route path="patients">
                   <Route index element={loggedInUser ? <Patients/> :  <Navigate to="/login" />}/>
