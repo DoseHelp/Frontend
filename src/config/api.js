@@ -1,13 +1,13 @@
 import axios from "axios";
 
-// const dosehelpAPI = axios.create({
-//     baseURL: 'https://dosehelp-api-staging.herokuapp.com'
-// })
-
 const dosehelpAPI = axios.create({
-    baseURL: 'http://localhost:4000'
+    baseURL: 'https://dosehelp.herokuapp.com'
 })
 
+// const dosehelpAPI = axios.create({
+//     baseURL: 'http://localhost:4000'
+// })
+ 
 // const dosehelpAPI = axios.create({
 //     baseURL: process.env.BACKEND_URL
 // })

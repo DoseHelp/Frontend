@@ -1,9 +1,9 @@
-/* eslint-disable */
-import { useEffect, useState } from "react"
+///* eslint-disable */
+import {  useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { signIn } from "../services/authServices"
 import { useGlobalState } from "../utils/stateContext"
-// --------Styling----------- 
+// --------Styling-----------  
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -23,7 +23,7 @@ function Copyright(props) {
     return (
       <Typography variant="body2" color="text.secondary" align="center" {...props}>
         {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
+        <Link color="inherit" href="">
           DoseHelp
         </Link>{' '}
         {new Date().getFullYear()}
@@ -95,21 +95,21 @@ const LoginForm = () => {
     const theme = createTheme();  
 
 
-    useEffect(() => {
-      dispatch({
-          type: "setLoggedInUser",
-          data: ""
-      })
-      dispatch({
-          type: "setToken",
-          data: null
-      })
-      dispatch({
-        type: "setUserID",
-        data: ""
-    })
-      
-    }, []);
+    // useEffect(() => {
+    //   dispatch({
+    //       type: "setLoggedInUser",
+    //       data: ""
+    //   })
+    //   dispatch({
+    //       type: "setToken",
+    //       data: null
+    //   })
+    //   dispatch({
+    //     type: "setUserID",
+    //     data: ""
+    // })
+    
+    // }, []);
 
     return (
         <ThemeProvider theme={theme}>

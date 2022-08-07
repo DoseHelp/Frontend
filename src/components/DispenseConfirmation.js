@@ -1,6 +1,8 @@
 import PatientDetail from "./PatientDetails"
 
 const DispenseConfirmation = () => {
+
+   
     return (
         <>
         <PatientDetail>

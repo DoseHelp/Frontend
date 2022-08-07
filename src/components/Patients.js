@@ -30,7 +30,7 @@ const Patients = () => {
     return (
        
         <>
-         
+         patients list
           <div style={{ height: 400, width: '100%' }}>
            { rows.length > 0 ?
               <DataGrid
